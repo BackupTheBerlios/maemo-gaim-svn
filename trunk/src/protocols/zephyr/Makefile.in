@@ -1,0 +1,575 @@
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ../../..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+build_alias = @build_alias@
+build_triplet = @build@
+host_alias = @host_alias@
+host_triplet = @host@
+target_alias = @target_alias@
+target_triplet = @target@
+AO_CFLAGS = @AO_CFLAGS@
+AO_LIBS = @AO_LIBS@
+AR = @AR@
+AS = @AS@
+AUDIOFILE_CFLAGS = @AUDIOFILE_CFLAGS@
+AUDIOFILE_CONFIG = @AUDIOFILE_CONFIG@
+AUDIOFILE_LIBS = @AUDIOFILE_LIBS@
+BINRELOC_CFLAGS = @BINRELOC_CFLAGS@
+BINRELOC_LIBS = @BINRELOC_LIBS@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+CFLAGS = @CFLAGS@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+DATADIRNAME = @DATADIRNAME@
+DEBUG_CFLAGS = @DEBUG_CFLAGS@
+DLLTOOL = @DLLTOOL@
+DOT = @DOT@
+DOXYGEN = @DOXYGEN@
+DYNALOADER_A = @DYNALOADER_A@
+DYNAMIC_PRPLS = @DYNAMIC_PRPLS@
+ECHO = @ECHO@
+EGREP = @EGREP@
+EVOLUTION_ADDRESSBOOK_CFLAGS = @EVOLUTION_ADDRESSBOOK_CFLAGS@
+EVOLUTION_ADDRESSBOOK_LIBS = @EVOLUTION_ADDRESSBOOK_LIBS@
+EXEEXT = @EXEEXT@
+F77 = @F77@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
+GENCAT = @GENCAT@
+GLIBC21 = @GLIBC21@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_CONFIG = @GLIB_CONFIG@
+GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
+GLIB_LIBS = @GLIB_LIBS@
+GLIB_MKENUMS = @GLIB_MKENUMS@
+GMSGFMT = @GMSGFMT@
+GNUTLS_CFLAGS = @GNUTLS_CFLAGS@
+GNUTLS_LIBS = @GNUTLS_LIBS@
+GOBJECT_QUERY = @GOBJECT_QUERY@
+GTKSPELL_CFLAGS = @GTKSPELL_CFLAGS@
+GTKSPELL_LIBS = @GTKSPELL_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
+HAVE_ASPRINTF = @HAVE_ASPRINTF@
+HAVE_LIB = @HAVE_LIB@
+HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
+HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_WPRINTF = @HAVE_WPRINTF@
+HILDON_CFLAGS = @HILDON_CFLAGS@
+HILDON_LIBS = @HILDON_LIBS@
+INSTOBJEXT = @INSTOBJEXT@
+INTLBISON = @INTLBISON@
+INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+KRB4_CFLAGS = @KRB4_CFLAGS@
+KRB4_LDFLAGS = @KRB4_LDFLAGS@
+KRB4_LIBS = @KRB4_LIBS@
+LDADD = @LDADD@
+LIB = @LIB@
+LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
+LIBPERL_A = @LIBPERL_A@
+LIBS = @LIBS@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+LTLIB = @LTLIB@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
+MAKEINFO = @MAKEINFO@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+NSS_CFLAGS = @NSS_CFLAGS@
+NSS_LIBS = @NSS_LIBS@
+OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+PERL_CFLAGS = @PERL_CFLAGS@
+PERL_LIBS = @PERL_LIBS@
+PERL_MM_PARAMS = @PERL_MM_PARAMS@
+PKG_CONFIG = @PKG_CONFIG@
+POSUB = @POSUB@
+RANLIB = @RANLIB@
+RC = @RC@
+SILC_CFLAGS = @SILC_CFLAGS@
+SILC_LIBS = @SILC_LIBS@
+SM_LIBS = @SM_LIBS@
+SOUND_LIBS = @SOUND_LIBS@
+STARTUP_NOTIFICATION_CFLAGS = @STARTUP_NOTIFICATION_CFLAGS@
+STARTUP_NOTIFICATION_LIBS = @STARTUP_NOTIFICATION_LIBS@
+STATIC_LINK_LIBS = @STATIC_LINK_LIBS@
+STATIC_PRPLS = @STATIC_PRPLS@
+STRIP = @STRIP@
+TCL_CFLAGS = @TCL_CFLAGS@
+TCL_LIBS = @TCL_LIBS@
+TK_LIBS = @TK_LIBS@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+USE_NLS = @USE_NLS@
+VERSION = @VERSION@
+XSS_LIBS = @XSS_LIBS@
+ZEPHYR_CFLAGS = @ZEPHYR_CFLAGS@
+ZEPHYR_LDFLAGS = @ZEPHYR_LDFLAGS@
+ZEPHYR_LIBS = @ZEPHYR_LIBS@
+enable_dot = @enable_dot@
+enable_doxygen = @enable_doxygen@
+gaimpath = @gaimpath@
+perlpath = @perlpath@
+sedpath = @sedpath@
+
+pkgdir = $(libdir)/gaim
+
+ZEPHYRSOURCES =  	ZAsyncLocate.c 	ZCkAuth.c 	ZCkIfNot.c 	ZClosePort.c 	ZCmpUID.c 	ZCmpUIDP.c 	ZFlsLocs.c 	ZFlsSubs.c 	ZFmtAuth.c 	ZFmtList.c 	ZFmtNotice.c 	ZFmtRaw.c 	ZFmtRawLst.c 	ZFmtSmRLst.c 	ZFmtSmRaw.c 	ZFreeNot.c 	ZGetLocs.c 	ZGetSender.c 	ZGetSubs.c 	ZGetWGPort.c 	ZIfNotice.c 	ZInit.c 	ZLocations.c 	ZMakeAscii.c 	ZMkAuth.c 	ZNewLocU.c 	ZOpenPort.c 	ZParseNot.c 	ZPeekIfNot.c 	ZPeekNot.c 	ZPeekPkt.c 	ZPending.c 	ZReadAscii.c 	ZRecvNot.c 	ZRecvPkt.c 	ZRetSubs.c 	ZSendList.c 	ZSendNot.c 	ZSendPkt.c 	ZSendRLst.c 	ZSendRaw.c 	ZSetDest.c 	ZSetFD.c 	ZSetSrv.c 	ZSubs.c 	ZVariables.c 	ZWait4Not.c 	ZhmStat.c 	Zinternal.c 	com_err.h 	error_message.c 	error_table.h 	et_name.c 	init_et.c 	internal.h 	mit-copyright.h 	mit-sipb-copyright.h 	sysdep.h 	zephyr.h 	zephyr_err.c 	zephyr_err.h 		zephyr.c
+
+
+ZEPHYRSOURCESEXT = zephyr.c
+
+AM_CFLAGS = $(st)
+
+ZEPHYRLIBS = $(KRB4_LDFLAGS) $(KRB4_LIBS)
+
+ZEPHYRLIBSEXT = $(ZEPHYR_LDFLAGS) $(ZEPHYR_LIBS)
+
+libzephyr_la_LDFLAGS = -module -avoid-version $(GLIB_LIBS)
+
+@STATIC_ZEPHYR_TRUE@st = -DGAIM_STATIC_PRPL -Dlint
+@STATIC_ZEPHYR_FALSE@st = -Dlint
+@STATIC_ZEPHYR_TRUE@noinst_LIBRARIES = libzephyr.a
+@STATIC_ZEPHYR_TRUE@libzephyr_a_SOURCES = $(ZEPHYRSOURCES)
+@STATIC_ZEPHYR_TRUE@libzephyr_a_CFLAGS = $(AM_CFLAGS)
+@STATIC_ZEPHYR_TRUE@libzephyr_a_LIBADD = $(ZEPHYRLIBS)
+@STATIC_ZEPHYR_FALSE@pkg_LTLIBRARIES = libzephyr.la
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_TRUE@libzephyr_la_SOURCES = $(ZEPHYRSOURCESEXT)
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@libzephyr_la_SOURCES = $(ZEPHYRSOURCES)
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_TRUE@libzephyr_la_LIBADD = $(ZEPHYRLIBSEXT)
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@libzephyr_la_LIBADD = $(ZEPHYRLIBS)
+
+AM_CPPFLAGS =  	-I$(top_srcdir) 	-I$(top_srcdir)/src 	-I$(top_srcdir)/src/protocols 	-DCONFDIR=\"$(confdir)\" 	$(GLIB_CFLAGS) 	$(KRB4_CFLAGS) 	$(DEBUG_CFLAGS)
+
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../../../config.h
+CONFIG_CLEAN_FILES = 
+LIBRARIES =  $(noinst_LIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I../../..
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+X_CFLAGS = @X_CFLAGS@
+X_LIBS = @X_LIBS@
+X_EXTRA_LIBS = @X_EXTRA_LIBS@
+X_PRE_LIBS = @X_PRE_LIBS@
+@STATIC_ZEPHYR_TRUE@libzephyr_a_DEPENDENCIES = 
+@STATIC_ZEPHYR_TRUE@libzephyr_a_OBJECTS =  ZAsyncLocate.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZCkAuth.$(OBJEXT) ZCkIfNot.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZClosePort.$(OBJEXT) ZCmpUID.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZCmpUIDP.$(OBJEXT) ZFlsLocs.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZFlsSubs.$(OBJEXT) ZFmtAuth.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZFmtList.$(OBJEXT) ZFmtNotice.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZFmtRaw.$(OBJEXT) ZFmtRawLst.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZFmtSmRLst.$(OBJEXT) ZFmtSmRaw.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZFreeNot.$(OBJEXT) ZGetLocs.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZGetSender.$(OBJEXT) ZGetSubs.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZGetWGPort.$(OBJEXT) ZIfNotice.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZInit.$(OBJEXT) ZLocations.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZMakeAscii.$(OBJEXT) ZMkAuth.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZNewLocU.$(OBJEXT) ZOpenPort.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZParseNot.$(OBJEXT) ZPeekIfNot.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZPeekNot.$(OBJEXT) ZPeekPkt.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZPending.$(OBJEXT) ZReadAscii.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZRecvNot.$(OBJEXT) ZRecvPkt.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZRetSubs.$(OBJEXT) ZSendList.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZSendNot.$(OBJEXT) ZSendPkt.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZSendRLst.$(OBJEXT) ZSendRaw.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZSetDest.$(OBJEXT) ZSetFD.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZSetSrv.$(OBJEXT) ZSubs.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZVariables.$(OBJEXT) ZWait4Not.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@ZhmStat.$(OBJEXT) Zinternal.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@error_message.$(OBJEXT) et_name.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@init_et.$(OBJEXT) zephyr_err.$(OBJEXT) \
+@STATIC_ZEPHYR_TRUE@zephyr.$(OBJEXT)
+LTLIBRARIES =  $(pkg_LTLIBRARIES)
+
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@libzephyr_la_DEPENDENCIES = 
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_TRUE@libzephyr_la_DEPENDENCIES = 
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@libzephyr_la_OBJECTS =  \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZAsyncLocate.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZCkAuth.lo ZCkIfNot.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZClosePort.lo ZCmpUID.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZCmpUIDP.lo ZFlsLocs.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZFlsSubs.lo ZFmtAuth.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZFmtList.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZFmtNotice.lo ZFmtRaw.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZFmtRawLst.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZFmtSmRLst.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZFmtSmRaw.lo ZFreeNot.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZGetLocs.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZGetSender.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZGetSubs.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZGetWGPort.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZIfNotice.lo ZInit.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZLocations.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZMakeAscii.lo ZMkAuth.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZNewLocU.lo ZOpenPort.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZParseNot.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZPeekIfNot.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZPeekNot.lo ZPeekPkt.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZPending.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZReadAscii.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZRecvNot.lo ZRecvPkt.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZRetSubs.lo ZSendList.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZSendNot.lo ZSendPkt.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZSendRLst.lo ZSendRaw.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZSetDest.lo ZSetFD.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZSetSrv.lo ZSubs.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZVariables.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@ZWait4Not.lo ZhmStat.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@Zinternal.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@error_message.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@et_name.lo init_et.lo \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_FALSE@zephyr_err.lo zephyr.lo
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_TRUE@libzephyr_la_OBJECTS =  \
+@STATIC_ZEPHYR_FALSE@@EXTERNAL_LIBZEPHYR_TRUE@zephyr.lo
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+DIST_COMMON =  Makefile.am Makefile.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = tar
+GZIP_ENV = --best
+DEP_FILES =  .deps/ZAsyncLocate.P .deps/ZCkAuth.P .deps/ZCkIfNot.P \
+.deps/ZClosePort.P .deps/ZCmpUID.P .deps/ZCmpUIDP.P .deps/ZFlsLocs.P \
+.deps/ZFlsSubs.P .deps/ZFmtAuth.P .deps/ZFmtList.P .deps/ZFmtNotice.P \
+.deps/ZFmtRaw.P .deps/ZFmtRawLst.P .deps/ZFmtSmRLst.P .deps/ZFmtSmRaw.P \
+.deps/ZFreeNot.P .deps/ZGetLocs.P .deps/ZGetSender.P .deps/ZGetSubs.P \
+.deps/ZGetWGPort.P .deps/ZIfNotice.P .deps/ZInit.P .deps/ZLocations.P \
+.deps/ZMakeAscii.P .deps/ZMkAuth.P .deps/ZNewLocU.P .deps/ZOpenPort.P \
+.deps/ZParseNot.P .deps/ZPeekIfNot.P .deps/ZPeekNot.P .deps/ZPeekPkt.P \
+.deps/ZPending.P .deps/ZReadAscii.P .deps/ZRecvNot.P .deps/ZRecvPkt.P \
+.deps/ZRetSubs.P .deps/ZSendList.P .deps/ZSendNot.P .deps/ZSendPkt.P \
+.deps/ZSendRLst.P .deps/ZSendRaw.P .deps/ZSetDest.P .deps/ZSetFD.P \
+.deps/ZSetSrv.P .deps/ZSubs.P .deps/ZVariables.P .deps/ZWait4Not.P \
+.deps/ZhmStat.P .deps/Zinternal.P .deps/error_message.P .deps/et_name.P \
+.deps/init_et.P .deps/zephyr.P .deps/zephyr_err.P
+SOURCES = $(libzephyr_a_SOURCES) $(libzephyr_la_SOURCES)
+OBJECTS = $(libzephyr_a_OBJECTS) $(libzephyr_la_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .lo .o .obj .s
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.ac $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --foreign src/protocols/zephyr/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-noinstLIBRARIES:
+
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+
+distclean-noinstLIBRARIES:
+
+maintainer-clean-noinstLIBRARIES:
+
+# FIXME: We should only use cygpath when building on Windows,
+# and only if it is available.
+.c.obj:
+	$(COMPILE) -c `cygpath -w $<`
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+	-rm -f *.$(OBJEXT)
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+libzephyr.a: $(libzephyr_a_OBJECTS) $(libzephyr_a_DEPENDENCIES)
+	-rm -f libzephyr.a
+	$(AR) cru libzephyr.a $(libzephyr_a_OBJECTS) $(libzephyr_a_LIBADD)
+	$(RANLIB) libzephyr.a
+
+mostlyclean-pkgLTLIBRARIES:
+
+clean-pkgLTLIBRARIES:
+	-test -z "$(pkg_LTLIBRARIES)" || rm -f $(pkg_LTLIBRARIES)
+
+distclean-pkgLTLIBRARIES:
+
+maintainer-clean-pkgLTLIBRARIES:
+
+install-pkgLTLIBRARIES: $(pkg_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(pkgdir)
+	@list='$(pkg_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(pkgdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(pkgdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-pkgLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(pkg_LTLIBRARIES)'; for p in $$list; do \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(pkgdir)/$$p; \
+	done
+
+libzephyr.la: $(libzephyr_la_OBJECTS) $(libzephyr_la_DEPENDENCIES)
+	$(LINK) -rpath $(pkgdir) $(libzephyr_la_LDFLAGS) $(libzephyr_la_OBJECTS) $(libzephyr_la_LIBADD) $(LIBS)
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags -o $$here/TAGS $(ETAGS_ARGS) $$tags  $$unique $(LISP))
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = src/protocols/zephyr
+
+distdir: $(DISTFILES)
+	here=`cd $(top_builddir) && pwd`; \
+	top_distdir=`cd $(top_distdir) && pwd`; \
+	distdir=`cd $(distdir) && pwd`; \
+	cd $(top_srcdir) \
+	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign src/protocols/zephyr/Makefile
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
+
+-include $(DEP_FILES)
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf .deps
+
+maintainer-clean-depend:
+
+%.o: %.c
+	@echo '$(COMPILE) -c $<'; \
+	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm .deps/$(*F).pp
+
+%.lo: %.c
+	@echo '$(LTCOMPILE) -c $<'; \
+	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
+	  < .deps/$(*F).pp > .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm -f .deps/$(*F).pp
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am:
+install-exec: install-exec-am
+
+install-data-am: install-pkgLTLIBRARIES
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-pkgLTLIBRARIES
+uninstall: uninstall-am
+all-am: Makefile $(LIBRARIES) $(LTLIBRARIES)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(pkgdir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-noinstLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-pkgLTLIBRARIES \
+		mostlyclean-tags mostlyclean-depend mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-noinstLIBRARIES clean-compile clean-libtool \
+		clean-pkgLTLIBRARIES clean-tags clean-depend \
+		clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-noinstLIBRARIES distclean-compile \
+		distclean-libtool distclean-pkgLTLIBRARIES \
+		distclean-tags distclean-depend distclean-generic \
+		clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-noinstLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-pkgLTLIBRARIES maintainer-clean-tags \
+		maintainer-clean-depend maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-noinstLIBRARIES distclean-noinstLIBRARIES \
+clean-noinstLIBRARIES maintainer-clean-noinstLIBRARIES \
+mostlyclean-compile distclean-compile clean-compile \
+maintainer-clean-compile mostlyclean-libtool distclean-libtool \
+clean-libtool maintainer-clean-libtool mostlyclean-pkgLTLIBRARIES \
+distclean-pkgLTLIBRARIES clean-pkgLTLIBRARIES \
+maintainer-clean-pkgLTLIBRARIES uninstall-pkgLTLIBRARIES \
+install-pkgLTLIBRARIES tags mostlyclean-tags distclean-tags clean-tags \
+maintainer-clean-tags distdir mostlyclean-depend distclean-depend \
+clean-depend maintainer-clean-depend info-am info dvi-am dvi check \
+check-am installcheck-am installcheck install-exec-am install-exec \
+install-data-am install-data install-am install uninstall-am uninstall \
+all-redirect all-am all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
+
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:
