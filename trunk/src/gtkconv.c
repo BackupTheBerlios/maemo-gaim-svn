@@ -128,6 +128,10 @@ extern GtkWidget *app;
 extern GtkWidget *app_buddy_view;
 extern GtkWidget *app_conv_view;
 extern GtkWidget *current_app_view;
+enum HILDON_UI_TOGGLE {UI_PARTICIPANT, 
+                       UI_TOPIC,
+                       UI_CHATWIN_FULLSCREEN,
+                       UI_BUTTON_BAR};
 #endif
 
 static GtkWidget *invite_dialog = NULL;
@@ -179,6 +183,11 @@ close_conv_cb(GtkWidget *w, gpointer d)
     GaimGtkConversation *gtkconv = (GaimGtkConversation *)conv->ui_data;
     GtkWidget* view = NULL;
     view = gtkconv->app_view_conv;
+    g_printf("UI STATE = %d\n",gtkconv->ui_state);
+    if(gtkconv->ui_state > UI_CHATWIN_FULLSCREEN){
+        hildon_app_set_appview(HILDON_APP(app),app_conv_view);
+        current_app_view = app_conv_view;
+    }
 #endif
     gaim_conversation_destroy(conv);
 #ifdef ENABLE_HILDON
@@ -1735,11 +1744,6 @@ move_to_next_unread_tab(GaimConversation *conv)
 }
 
 #ifdef ENABLE_HILDON
-enum HILDON_UI_TOGGLE {UI_PARTICIPANT, 
-                       UI_TOPIC,
-                       UI_TOOLBAR,
-                       UI_CHATWIN_FULLSCREEN,
-                       UI_BUTTON_BAR};
                        
 static gboolean
 app_view_entry_key_press_cb(GtkWidget *entry, GdkEventKey *event, gpointer data)
@@ -1770,6 +1774,7 @@ app_view_entry_key_press_cb(GtkWidget *entry, GdkEventKey *event, gpointer data)
                             break;
                         }
                         break;
+/*
                     case UI_TOOLBAR:
                         {
                         GaimConvWindow *win = (GaimConvWindow*)gtkconv->ui_data;
@@ -1777,6 +1782,7 @@ app_view_entry_key_press_cb(GtkWidget *entry, GdkEventKey *event, gpointer data)
                         gtk_widget_show(gtkwin->menu.menubar);
                         break;
                         }
+*/
                     case UI_CHATWIN_FULLSCREEN:
                         {
                             GtkWidget* top_vbox;
@@ -1827,6 +1833,7 @@ app_view_entry_key_press_cb(GtkWidget *entry, GdkEventKey *event, gpointer data)
                             gtk_widget_hide(chat->topic_hbox);
                             break;
                         }
+/*
                     case UI_TOOLBAR:
                         {
                         GaimConvWindow *win = (GaimConvWindow*)gtkconv->ui_data;
@@ -1835,6 +1842,7 @@ app_view_entry_key_press_cb(GtkWidget *entry, GdkEventKey *event, gpointer data)
                         gtkconv->ui_state = UI_TOOLBAR;
                         break;
                         }
+*/
                     case UI_CHATWIN_FULLSCREEN:
                         {
                             GtkWidget* top_vbox;
@@ -3946,9 +3954,13 @@ setup_menubar(GaimConvWindow *win)
     g_object_unref (accel_group);
 #endif
 
+#ifdef ENABLE_HILDON
+    gtkwin->menu.item_factory =
+        gtk_item_factory_new(GTK_TYPE_MENU, "<main>", accel_group);
+#else
 	gtkwin->menu.item_factory =
 		gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<main>", accel_group);
-
+#endif
 	gtk_item_factory_set_translate_func(gtkwin->menu.item_factory,
 										item_factory_translate_func,
 										NULL, NULL);
@@ -4342,7 +4354,7 @@ setup_chat_pane(GaimConversation *conv)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(gtkconv->sw),
 								   GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(gtkconv->sw),
-										GTK_SHADOW_IN);
+										GTK_SHADOW_NONE);
 	gtk_paned_pack1(GTK_PANED(hpaned), gtkconv->sw, TRUE, TRUE);
 
 	gtk_widget_set_size_request(gtkconv->sw,
@@ -4586,7 +4598,7 @@ setup_im_pane(GaimConversation *conv)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(gtkconv->sw),
 								   GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(gtkconv->sw),
-										GTK_SHADOW_IN);
+										GTK_SHADOW_NONE);
 	gtk_box_pack_start(GTK_BOX(vbox), gtkconv->sw, TRUE, TRUE, 0);
 
 	gtk_widget_set_size_request(gtkconv->sw,
@@ -4836,7 +4848,6 @@ gaim_gtk_new_window(GaimConvWindow *win)
 #else
     gtkwin->window = gtk_vbox_new(FALSE, 0);
     gtkwin->notebook = gtk_notebook_new();
-    gtk_notebook_set_tab_pos(gtkwin->notebook, GTK_POS_BOTTOM);
 #endif
 
 	pos = gaim_prefs_get_int("/gaim/gtk/conversations/tab_side");
@@ -4866,10 +4877,13 @@ gaim_gtk_new_window(GaimConvWindow *win)
 	g_signal_connect(G_OBJECT(gtkwin->notebook), "button_release_event",
 					 G_CALLBACK(notebook_release_cb), win);
 
-	testidea = gtk_vbox_new(FALSE, 0);
 
 	/* Setup the menubar. */
 	menubar = setup_menubar(win);
+#ifdef ENABLE_HILDON
+    gtk_container_add(GTK_CONTAINER(gtkwin->window), gtkwin->notebook);
+#else
+    testidea = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(testidea), menubar, FALSE, TRUE, 0);
 
 	gtk_box_pack_start(GTK_BOX(testidea), gtkwin->notebook, TRUE, TRUE, 0);
@@ -4877,6 +4891,7 @@ gaim_gtk_new_window(GaimConvWindow *win)
 	gtk_container_add(GTK_CONTAINER(gtkwin->window), testidea);
 
 	gtk_widget_show(testidea);
+#endif
 }
 
 static void
@@ -4986,6 +5001,13 @@ gaim_gtk_add_conversation(GaimConvWindow *win, GaimConversation *conv)
         gtk_container_add(GTK_CONTAINER(app_conv_view), gtkwin->window);
         g_signal_connect(G_OBJECT(app_conv_view), "key_press_event",
                         G_CALLBACK(app_view_entry_key_press_cb), conv);
+        {
+        g_object_ref(gtkwin->menu.menubar);
+        gtk_widget_hide(gtkwin->menu.menubar);
+        void **ptr = HILDON_APPVIEW(app_conv_view)->priv;
+        *ptr = gtkwin->menu.menubar;
+        }
+        
     }
 #else
     gtk_container_add(GTK_CONTAINER(notebook), gtkwin->window);
@@ -5011,6 +5033,13 @@ gaim_gtk_add_conversation(GaimConvWindow *win, GaimConversation *conv)
         gtkconv->ui_data = win;
 #ifdef ENABLE_HILDON
         gtkconv->app_view_conv = hildon_appview_new("");
+        /* so quick menu available to the fullscreen view */
+        {
+        g_object_ref(gtkwin->menu.menubar);
+        gtk_widget_hide(gtkwin->menu.menubar);
+        void **ptr = HILDON_APPVIEW(gtkconv->app_view_conv)->priv;
+        *ptr = gtkwin->menu.menubar;
+        }
         g_signal_connect(G_OBJECT(gtkconv->app_view_conv), "key_press_event",
                         G_CALLBACK(app_view_entry_key_press_cb), conv);
 #endif        

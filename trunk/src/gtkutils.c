@@ -224,13 +224,27 @@ gaim_pixbuf_toolbar_button_from_stock(const char *icon)
 	return button;
 }
 
+#ifdef ENABLE_HILDON
+GtkWidget *
+hildon_gaim_pixbuf_toolbar_button_from_stock(const char *text, const char *icon,
+                              GaimButtonOrientation style)
+{
+    GtkWidget *toolbar_button, *image;
+    if (icon) {
+        image = gtk_image_new_from_stock(icon, GTK_ICON_SIZE_BUTTON);
+    }
+    toolbar_button = gtk_tool_button_new(image, text);
+    gtk_widget_show_all(toolbar_button);
+    return toolbar_button;
+}
+#endif
+
 GtkWidget *
 gaim_pixbuf_button_from_stock(const char *text, const char *icon,
 							  GaimButtonOrientation style)
 {
 	GtkWidget *button, *image, *label, *bbox, *ibox, *lbox = NULL;
-
-	button = gtk_button_new();
+    button = gtk_button_new();
 
 	if (style == GAIM_BUTTON_HORIZONTAL) {
 		bbox = gtk_hbox_new(FALSE, 0);

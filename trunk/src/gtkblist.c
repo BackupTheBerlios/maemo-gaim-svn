@@ -1361,8 +1361,7 @@ create_buddy_menu(GaimBlistNode *node, GaimBuddy *b) {
 	GtkWidget *menu;
 	GtkWidget *menuitem;
 	gboolean show_offline = gaim_prefs_get_bool("/gaim/gtk/blist/show_offline_buddies");
-
-	menu = gtk_menu_new();
+    menu = gtk_menu_new();
 	gaim_gtk_blist_make_buddy_menu(menu, b);
 
 	if(GAIM_BLIST_NODE_IS_CONTACT(node)) {
@@ -2486,7 +2485,7 @@ static GtkItemFactoryEntry blist_menu[] =
 	{ N_("/Buddies/_Quit"), "<CTL>Q", gaim_core_quit, 0, "<StockItem>", GTK_STOCK_QUIT },
 
 	/* Tools */
-	{ N_("/_Tools"), NULL, NULL, 0, "<Branch>" },
+    { N_("/_Tools"), NULL, NULL, 0, "<Branch>" },
 	{ N_("/Tools/_Away"), NULL, NULL, 0, "<Branch>" },
 	{ N_("/Tools/Buddy _Pounce"), NULL, NULL, 0, "<Branch>" },
 	{ N_("/Tools/Account Ac_tions"), NULL, NULL, 0, "<Branch>" },
@@ -3201,6 +3200,9 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
     GtkWidget *notebook;
     GtkWidget *label;
     GtkWidget *vbox;
+    GtkWidget *buddy_toolbar;
+    GtkMenu *hildon_buddy_menu;
+    GtkMenuItem *menu_item;
 #endif
 
 	if (gtkblist && gtkblist->window) {
@@ -3246,7 +3248,11 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
 	accel_group = gtk_accel_group_new();
 	gtk_window_add_accel_group(GTK_WINDOW (gtkblist->window), accel_group);
 	g_object_unref(accel_group);
-	gtkblist->ift = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<GaimMain>", accel_group);
+#ifndef ENABLE_HILDON    
+    gtkblist->ift = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<GaimMain>", accel_group);
+#else
+    gtkblist->ift = gtk_item_factory_new(GTK_TYPE_MENU, "<GaimMain>", accel_group);
+#endif
 	gtk_item_factory_set_translate_func(gtkblist->ift,
 										item_factory_translate_func,
 										NULL, NULL);
@@ -3271,7 +3277,9 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
 	gaim_gtk_blist_update_plugin_actions();
 	/****************************** GtkTreeView **********************************/
 	sw = gtk_scrolled_window_new(NULL,NULL);
+#ifndef ENABLE_HILDON
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW(sw), GTK_SHADOW_IN);
+#endif
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 	gtkblist->treemodel = gtk_tree_store_new(BLIST_COLUMNS,
@@ -3376,7 +3384,6 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
 	gtkblist->tooltips = gtk_tooltips_new();
 
 	sg = gtk_size_group_new(GTK_SIZE_GROUP_BOTH);
-	gtkblist->bbox = gtk_hbox_new(TRUE, 0);
 #ifdef GAIM_SMALL_SCREEN 
     /*
     gtk_container_add(GTK_CONTAINER(gtkblist->window), gtkblist->vbox);
@@ -3385,9 +3392,13 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
     gtk_container_add(GTK_CONTAINER(gtkblist->vbox), notebook);
     */
 #ifdef ENABLE_HILDON
+    
     gtk_container_add(GTK_CONTAINER(app_buddy_view), vbox);
     gtk_container_add(GTK_CONTAINER(notebook), gtk_vbox_new(FALSE, 0));
+    gtkblist->bbox = buddy_toolbar = gtk_toolbar_new();
+    hildon_appview_set_toolbar(app_buddy_view, buddy_toolbar);
 #else
+    gtkblist->bbox = gtk_hbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(gtkblist->window), notebook);
     gtk_container_add(GTK_CONTAINER(notebook), vbox);
 #endif
@@ -3401,54 +3412,84 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
         
     gtk_container_add(GTK_CONTAINER(sw), gtkblist->treeview);
     gtk_widget_show (gtkblist->treeview);
-    
+#ifndef ENABLE_HILDON
     gtk_box_pack_start(GTK_BOX(vbox), gtk_item_factory_get_widget(gtkblist->ift, "<GaimMain>"), FALSE, FALSE, 0);
     gtk_widget_show (gtk_item_factory_get_widget(gtkblist->ift, "<GaimMain>"));
-    
+#else
+    /* nasty undocumented stuff  basically i am force changing their
+       menu pointer in private priv structure of hildonapp_view struct*/
+    {
+        g_object_ref(gtk_item_factory_get_widget(gtkblist->ift, "<GaimMain>"));
+        void **ptr = HILDON_APPVIEW(app_buddy_view)->priv;
+        *ptr = gtk_item_factory_get_widget(gtkblist->ift, "<GaimMain>");
+    }
+#endif
+
     gtk_box_pack_start(GTK_BOX(vbox), sw, TRUE, TRUE, 0);
     gtk_widget_show (sw);
     
     gtk_box_pack_start(GTK_BOX(vbox), gtkblist->bbox, FALSE, FALSE, 0);
 #else
+    gtkblist->bbox = gtk_hbox_new(TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(gtkblist->vbox), gtkblist->bbox, FALSE, FALSE, 0);
 #endif
 	gtk_widget_show(gtkblist->bbox);
 
-	button = gaim_pixbuf_button_from_stock(_("I_M"), GAIM_STOCK_IM, GAIM_BUTTON_VERTICAL);
-	gtk_box_pack_start(GTK_BOX(gtkblist->bbox), button, FALSE, FALSE, 0);
-	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
-	gtk_size_group_add_widget(sg, button);
+#ifdef ENABLE_HILDON
+    button = hildon_gaim_pixbuf_toolbar_button_from_stock(_("I_M"), GAIM_STOCK_IM, GAIM_BUTTON_VERTICAL);
+    gtk_toolbar_insert(GTK_TOOLBAR(buddy_toolbar), button, -1);
+#else
+    button = gaim_pixbuf_button_from_stock(_("I_M"), GAIM_STOCK_IM, GAIM_BUTTON_VERTICAL);
+    gtk_box_pack_start(GTK_BOX(gtkblist->bbox), button, FALSE, FALSE, 0);
+    gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
+#endif
+    gtk_size_group_add_widget(sg, button);
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(gtk_blist_button_im_cb),
 			 gtkblist->treeview);
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(gtkblist->tooltips), button, _("Send a message to the selected buddy"), NULL);
 	g_object_set_data(G_OBJECT(button), "button_name", "im");
 	gtk_widget_show(button);
 
+#ifdef ENABLE_HILDON
+    button = hildon_gaim_pixbuf_toolbar_button_from_stock(_("Get _Info"), GAIM_STOCK_INFO, GAIM_BUTTON_VERTICAL);
+    gtk_toolbar_insert(GTK_TOOLBAR(buddy_toolbar), button, -1);
+#else
     button = gaim_pixbuf_button_from_stock(_("Get _Info"), GAIM_STOCK_INFO, GAIM_BUTTON_VERTICAL);
     gtk_box_pack_start(GTK_BOX(gtkblist->bbox), button, FALSE, FALSE, 0);
 	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
-	gtk_size_group_add_widget(sg, button);
+#endif
+    gtk_size_group_add_widget(sg, button);
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(gtk_blist_button_info_cb),
 			 gtkblist->treeview);
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(gtkblist->tooltips), button, _("Get information on the selected buddy"), NULL);
 	g_object_set_data(G_OBJECT(button), "button_name", "info");
 	gtk_widget_show(button);
 
+#ifdef ENABLE_HILDON
+    button = hildon_gaim_pixbuf_toolbar_button_from_stock(_("_Chat"), GAIM_STOCK_CHAT, GAIM_BUTTON_VERTICAL);
+    gtk_toolbar_insert(GTK_TOOLBAR(buddy_toolbar), button, -1);
+#else
     button = gaim_pixbuf_button_from_stock(_("_Chat"), GAIM_STOCK_CHAT, GAIM_BUTTON_VERTICAL);
     
 	gtk_box_pack_start(GTK_BOX(gtkblist->bbox), button, FALSE, FALSE, 0);
 	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
-	gtk_size_group_add_widget(sg, button);
+#endif
+    gtk_size_group_add_widget(sg, button);
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(gtk_blist_button_chat_cb), gtkblist->treeview);
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(gtkblist->tooltips), button, _("Join a chat room"), NULL);
 	gtk_widget_set_sensitive(button, gaim_gtk_blist_joinchat_is_showable());
 	g_object_set_data(G_OBJECT(button), "button_name", "chat");
 	gtk_widget_show(button);
 
+#ifdef ENABLE_HILDON
+    button = hildon_gaim_pixbuf_toolbar_button_from_stock(_("_Away"), GAIM_STOCK_ICON_AWAY, GAIM_BUTTON_VERTICAL);
+    gtk_toolbar_insert(GTK_TOOLBAR(buddy_toolbar), button, -1);
+#else
 	button = gaim_pixbuf_button_from_stock(_("_Away"), GAIM_STOCK_ICON_AWAY, GAIM_BUTTON_VERTICAL);
 	gtk_box_pack_start(GTK_BOX(gtkblist->bbox), button, FALSE, FALSE, 0);
 	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
-	gtk_size_group_add_widget(sg, button);
+#endif
+    gtk_size_group_add_widget(sg, button);
 	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(gtk_blist_button_away_cb), NULL);
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(gtkblist->tooltips), button, _("Set an away message"), NULL);
 	g_object_set_data(G_OBJECT(button), "button_name", "away");
@@ -3456,7 +3497,6 @@ static void gaim_gtk_blist_show(GaimBuddyList *list)
 
 	/* this will show the right image/label widgets for us */
 	gaim_gtk_blist_update_toolbar();
-
 	/* start the refresh timer */
 	if (gaim_prefs_get_bool("/gaim/gtk/blist/show_idle_time") ||
 		gaim_prefs_get_bool("/gaim/gtk/blist/show_buddy_icons")) {
@@ -3628,6 +3668,7 @@ static gboolean get_iter_from_node(GaimBlistNode *node, GtkTreeIter *iter) {
 static void
 gaim_gtk_blist_update_toolbar_icons (GtkWidget *widget, gpointer data)
 {
+#ifndef ENABLE_HILDON
 	GaimButtonStyle style = gaim_prefs_get_int("/gaim/gtk/blist/button_style");
 
 	if (GTK_IS_IMAGE(widget)) {
@@ -3648,6 +3689,7 @@ gaim_gtk_blist_update_toolbar_icons (GtkWidget *widget, gpointer data)
 		gtk_container_foreach(GTK_CONTAINER(widget),
 							  gaim_gtk_blist_update_toolbar_icons, NULL);
 	}
+#endif
 }
 
 void gaim_gtk_blist_update_toolbar() {

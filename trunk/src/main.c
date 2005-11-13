@@ -219,6 +219,7 @@ static void combo_changed(GtkWidget *menu, GaimAccount *account, gpointer data)
 
 static void login_window_closed(GtkWidget *w, GdkEvent *ev, gpointer d)
 {
+    g_printf("login_window_closed\n");
 	if(docklet_count) {
 #ifdef _WIN32
 		wgaim_systray_minimize(mainwindow);
@@ -226,6 +227,7 @@ static void login_window_closed(GtkWidget *w, GdkEvent *ev, gpointer d)
 		gtk_widget_hide(mainwindow);
 	} else
         gaim_core_quit();
+    
 }
 
 #ifdef ENABLE_HILDON  
@@ -316,7 +318,7 @@ void show_login()
             hildon_app_set_appview(HILDON_APP(app), login_app_view);
             return;
     }
-    current_app_view = login_app_view = hildon_appview_new(_("Login"));
+    mainwindow = current_app_view = login_app_view = hildon_appview_new(_("Login"));
     hildon_app_set_appview(HILDON_APP(app), HILDON_APPVIEW(login_app_view));
     
     hbox_toplevel = gtk_hbox_new(FALSE, 0);

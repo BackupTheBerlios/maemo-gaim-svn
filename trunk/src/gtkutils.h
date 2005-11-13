@@ -163,6 +163,12 @@ GtkWidget *gaim_new_item_from_stock(GtkWidget *menu, const char *str,
 GtkWidget *gaim_pixbuf_button_from_stock(const char *text, const char *icon,
 										 GaimButtonOrientation style);
 
+#ifdef ENABLE_HILDON
+GtkWidget *
+hildon_gaim_pixbuf_toolbar_button_from_stock(const char *text, const char *icon,
+                              GaimButtonOrientation style);
+#endif
+
 /**
  * Creates a toolbar button with the stock icon.
  *
