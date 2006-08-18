@@ -1,0 +1,66 @@
+Source: maemo-gaim
+Section: user/Applications
+Priority: optional
+Maintainer: Santtu Lakkala <inz@inz.fi>
+Build-Depends: debhelper (>= 4.0.0), hildon-libs-dev (>= 0.12.0), libosso-dev (>= 1.0)
+Standards-Version: 3.6.2.1
+
+Package: maemo-gaim
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${launcher:Depends}, maemo-gaim-data (>= ${Source-Version})
+Description: Port of gaim to maemo
+ Port of gaim to maemo.
+
+Package: maemo-gaim-data
+Architecture: any
+Description: Data files for maemo-gaim
+ Here there be data.
+
+Package: maemo-gaim-dev
+Section: libdevel
+Architecture: all
+Depends: maemo-gaim
+Description: Development files for gaim
+ Development files for gaim.
+
+Package: maemo-gaim-locale-de
+Section: user/Locales
+Architecture: all
+Depends: maemo-gaim
+Description: Deutch locale for maemo-gaim
+ Here there be Deutch.
+
+Package: maemo-gaim-locale-engb
+Section: user/Locales
+Architecture: all
+Depends: maemo-gaim
+Description: UK English locale for maemo-gaim
+ Here there be real English.
+
+Package: maemo-gaim-locale-es
+Section: user/Locales
+Architecture: all
+Depends: maemo-gaim
+Description: Spanish locale for maemo-gaim
+ Here there be Spanish.
+
+Package: maemo-gaim-locale-fr
+Section: user/Locales
+Architecture: all
+Depends: maemo-gaim
+Description: French locale for maemo-gaim
+ Here there be French.
+
+Package: maemo-gaim-locale-it
+Section: user/Locales
+Architecture: all
+Depends: maemo-gaim
+Description: Italian locale for maemo-gaim
+ Here there be Italian.
+
+Package: maemo-gaim-locale-ptbr
+Section: user/Locales
+Architecture: all
+Depends: maemo-gaim
+Description: Brazilian Portugese locale for maemo-gaim
+ Here there be Portugese.

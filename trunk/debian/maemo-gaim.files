@@ -1,0 +1,5 @@
+usr/lib/gaim/*.so
+usr/lib/*.so.*
+usr/bin/*
+usr/share/applications
+usr/share/dbus-1

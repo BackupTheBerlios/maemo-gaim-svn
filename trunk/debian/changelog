@@ -1,0 +1,38 @@
+maemo-gaim (1.5.0-6) unstable; urgency=low
+
+  * Remove circular dependency.
+
+ -- Santtu Lakkala <ext-santtu.1.lakkala@nokia.com>  Thu, 29 Jun 2006 08:32:10 +0300
+
+maemo-gaim (1.5.0-5) unstable; urgency=low
+
+  * Hide login window on connect.
+  * Close chat windows with appview close button.
+
+ -- Santtu Lakkala <inz@inz.fi>  Tue, 27 Jun 2006 12:29:44 +0300
+
+maemo-gaim (1.5.0-4) unstable; urgency=low
+
+  * Fix crash when closing smilie dialog.
+
+ -- Santtu Lakkala <inz@inz.fi>  Fri, 16 Jun 2006 10:45:53 +0300
+
+maemo-gaim (1.5.0-3) unstable; urgency=low
+
+  * Sounds package, locale packages.
+  * Build with sound support.
+
+ -- Santtu Lakkala <inz@inz.fi>  Fri, 16 Jun 2006 08:42:55 +0300
+
+maemo-gaim (1.5.0-2) unstable; urgency=low
+
+  * Build with ssl support.
+
+ -- Santtu Lakkala <inz@inz.fi>  Thu, 15 Jun 2006 14:55:51 +0300
+
+maemo-gaim (1.5.0-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Santtu Lakkala <inz@inz.fi>  Mon, 12 Jun 2006 14:31:59 +0300
+
