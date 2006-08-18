@@ -1,11 +1,14 @@
 [Desktop Entry]
 Encoding=UTF-8
 Categories=Application;Network;
-Exec=gaim
-Icon=gaim.png
+Exec=/usr/bin/gaim
+Icon=gaim
 StartupNotify=true
 Terminal=false
 Type=Application
+X-Osso-Service=org.maemo.gaim
+X-Osso-Type=application/x-executable
+X-HildonDesk-ShowInToolbar=true
 
 Name=Gaim Internet Messenger
 Name[ca]=Missatger d'Internet Gaim
