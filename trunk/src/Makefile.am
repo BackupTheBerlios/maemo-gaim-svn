@@ -213,18 +213,18 @@ gaiminclude_HEADERS = \
 	$(gaim_headers)
 
 gaim_DEPENDENCIES = @LIBOBJS@ $(STATIC_LINK_LIBS)
-gaim_LDFLAGS = -export-dynamic
+gaim_LDFLAGS = -export-dynamic $(LAUNCHER_LDFLAGS)
 gaim_LDADD = \
 	@LIBOBJS@ \
 	$(GTK_LIBS) \
-	$(HILDON_LIBS) \
 	$(SOUND_LIBS) \
 	$(STATIC_LINK_LIBS) \
 	$(XSS_LIBS) \
 	$(SM_LIBS) \
 	$(INTLLIBS) \
 	$(GTKSPELL_LIBS) \
-	$(STARTUP_NOTIFICATION_LIBS)
+	$(STARTUP_NOTIFICATION_LIBS) \
+	$(OSSO_LIBS)
 
 gaim_remote_SOURCES = \
 	gaim-remote.c \
@@ -247,6 +247,7 @@ AM_CPPFLAGS = \
 	$(AO_CFLAGS) \
 	$(DEBUG_CFLAGS) \
 	$(GTK_CFLAGS) \
-	$(HILDON_CFLAGS) \
 	$(GTKSPELL_CFLAGS) \
-	$(STARTUP_NOTIFICATION_CFLAGS)
+	$(STARTUP_NOTIFICATION_CFLAGS) \
+	$(OSSO_CFLAGS) \
+	$(LAUNCHER_CFLAGS)
