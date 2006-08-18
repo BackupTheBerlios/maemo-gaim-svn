@@ -232,6 +232,16 @@ static void login_window_closed(GtkWidget *w, GdkEvent *ev, gpointer d)
 
 #ifdef ENABLE_HILDON  
 
+/* Callback for delete event. */
+gboolean app_delete_event_proxy(GtkWidget * widget, GdkEvent *event,
+           HildonApp *app)
+{
+    HildonAppView *view = hildon_app_get_appview(app);
+    g_signal_emit_by_name(G_OBJECT(view), "delete-event", event);
+
+    return TRUE;
+}
+	
 /* Callback for hardware keys */
 gboolean app_key_press_cb(GtkWidget * widget, GdkEventKey * event,
            HildonApp *app)
@@ -242,7 +252,7 @@ gboolean app_key_press_cb(GtkWidget * widget, GdkEventKey * event,
     switch (event->keyval) 
     {
         case GDK_F6:
-            hildon_app_set_appview(app, current_app_view);    
+            hildon_app_set_appview(app, HILDON_APPVIEW(current_app_view));    
             is_fullscreen = toggle = !toggle;
             hildon_appview_set_fullscreen(HILDON_APPVIEW(current_app_view), toggle);
             return TRUE;        
@@ -315,7 +325,8 @@ void show_login()
 
 #ifdef ENABLE_HILDON
     if (login_app_view) {
-            hildon_app_set_appview(HILDON_APP(app), login_app_view);
+            hildon_app_set_appview(HILDON_APP(app), HILDON_APPVIEW(login_app_view));
+	    g_object_unref(login_app_view);
             return;
     }
     mainwindow = current_app_view = login_app_view = hildon_appview_new(_("Login"));
@@ -1069,14 +1080,16 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_HILDON
     app = hildon_app_new();
     hildon_app_set_two_part_title(HILDON_APP(app), TRUE);
-    hildon_app_set_title( app, _("Gaim"));
-    hildon_app_set_autoregistration(app, TRUE);
+    hildon_app_set_title(HILDON_APP(app), _("Gaim"));
+    hildon_app_set_autoregistration(HILDON_APP(app), TRUE);
     /* I will catch the key events here to change views */
     g_signal_connect(G_OBJECT(app), "key_press_event", G_CALLBACK(app_key_press_cb), app);
+    g_signal_connect(G_OBJECT(app), "key_press_event", G_CALLBACK(app_key_press_cb), app);
+    g_signal_connect(G_OBJECT(app), "delete_event", G_CALLBACK(app_delete_event_proxy), app);
 
     gtk_widget_show_all( GTK_WIDGET( app ) );
     /* register with osso initialize */
-    context = osso_initialize(PACKAGE, PACKAGE_VERSION, FALSE, NULL);
+    context = osso_initialize("org.maemo." PACKAGE, PACKAGE_VERSION, FALSE, NULL);
     osso_application_set_top_cb(context, osso_top_callback, (gpointer)app);
 #endif    
 	if (!gaim_core_init(GAIM_GTK_UI)) {

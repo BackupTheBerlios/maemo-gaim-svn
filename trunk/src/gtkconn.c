@@ -217,6 +217,10 @@ static void gaim_gtk_connection_connect_progress(GaimConnection *gc,
         gtk_window_set_title(GTK_WINDOW(meter_win->window), _("Signon"));
 #else
 #ifdef ENABLE_HILDON
+        if(mainwindow && gtk_widget_get_parent(mainwindow)) {
+	    g_object_ref(mainwindow);
+	    gtk_container_remove(app, mainwindow);
+	}
         prev_app_view = current_app_view;
         current_app_view = meter_win->window = hildon_appview_new(_("Signon"));
         hildon_app_set_appview(HILDON_APP(app), HILDON_APPVIEW(meter_win->window));

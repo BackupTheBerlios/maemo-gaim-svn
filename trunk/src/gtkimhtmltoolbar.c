@@ -568,6 +568,13 @@ close_smiley_dialog(GtkWidget *widget, GdkEvent *event,
 	}
 }
 
+#ifdef ENABLE_HILDON
+static void
+close_smiley_dialog_no_event(GtkWidget *widget, GtkIMHtmlToolbar *toolbar)
+{
+	close_smiley_dialog(widget, NULL, toolbar);
+}
+#endif
 
 static void
 insert_smiley_text(GtkWidget *widget, GtkIMHtmlToolbar *toolbar)
@@ -625,6 +632,10 @@ insert_smiley_cb(GtkWidget *smiley, GtkIMHtmlToolbar *toolbar)
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(smiley))) {
 
 		GtkWidget *dialog;
+#ifdef ENABLE_HILDON
+		GtkWidget *vbox;
+		GtkWidget *button;
+#endif
 		GtkWidget *smiley_table = NULL;
 		GSList *smileys, *unique_smileys = NULL;
 		int width;
@@ -650,6 +661,10 @@ insert_smiley_cb(GtkWidget *smiley, GtkIMHtmlToolbar *toolbar)
 		}
 
 		GAIM_DIALOG(dialog);
+#ifdef ENABLE_HILDON
+		vbox = gtk_vbox_new(0, FALSE);
+		gtk_container_add(GTK_CONTAINER(dialog), vbox);
+#endif
 
 		gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
 		gtk_window_set_role(GTK_WINDOW(dialog), "smiley_dialog");
@@ -679,7 +694,16 @@ insert_smiley_cb(GtkWidget *smiley, GtkIMHtmlToolbar *toolbar)
 			smiley_table = gtk_label_new(_("This theme has no available smileys."));
 		}
 
+#ifdef ENABLE_HILDON
+		gtk_container_add(GTK_CONTAINER(vbox), smiley_table);
+		button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+		g_signal_connect(G_OBJECT(button), "clicked",
+				G_CALLBACK(close_smiley_dialog_no_event),
+				toolbar);
+		gtk_container_add(GTK_CONTAINER(vbox), button);
+#else
 		gtk_container_add(GTK_CONTAINER(dialog), smiley_table);
+#endif
 
 		gtk_widget_show(smiley_table);
 

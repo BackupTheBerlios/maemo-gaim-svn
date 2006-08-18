@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#include <string.h>
 #include "internal.h"
 
 #include "conversation.h"
@@ -566,15 +567,11 @@ gaim_str_to_time(const char *timestamp, gboolean utc)
 					}
 				}
 #else
-#ifdef HAVE_TM_GMTOFF
-				tzoff += t->tm_gmtoff;
-#else
 #	ifdef HAVE_TIMEZONE
 				tzset();    /* making sure */
 				tzoff -= timezone;
 				t->tm_isdst = 0; /* I think this might fix it */
 #	endif
-#endif
 #endif /* _WIN32 */
 			}
 		}
@@ -1263,7 +1260,7 @@ gaim_markup_strip_html(const char *str)
 			if (cdata_close_tag)
 			{
 				/* Note: Don't even assume any other tag is a tag in CDATA */
-				if (strncasecmp(str2 + i, cdata_close_tag,
+				if (g_ascii_strncasecmp(str2 + i, cdata_close_tag,
 						strlen(cdata_close_tag)) == 0)
 				{
 					i += strlen(cdata_close_tag) - 1;
@@ -1271,12 +1268,12 @@ gaim_markup_strip_html(const char *str)
 				}
 				continue;
 			}
-			else if (strncasecmp(str2 + i, "<td", 3) == 0 && closing_td_p)
+			else if (g_ascii_strncasecmp(str2 + i, "<td", 3) == 0 && closing_td_p)
 			{
 				str2[j++] = '\t';
 				visible = TRUE;
 			}
-			else if (strncasecmp(str2 + i, "</td>", 5) == 0)
+			else if (g_ascii_strncasecmp(str2 + i, "</td>", 5) == 0)
 			{
 				closing_td_p = TRUE;
 				visible = FALSE;
@@ -1303,28 +1300,28 @@ gaim_markup_strip_html(const char *str)
 				}
 
 				/* Check for tags which should be mapped to newline */
-				if (strncasecmp(str2 + i, "<p>", 3) == 0
-				 || strncasecmp(str2 + i, "<tr", 3) == 0
-				 || strncasecmp(str2 + i, "<br", 3) == 0
-				 || strncasecmp(str2 + i, "<li", 3) == 0
-				 || strncasecmp(str2 + i, "<div", 4) == 0
-				 || strncasecmp(str2 + i, "</table>", 8) == 0)
+				if (g_ascii_strncasecmp(str2 + i, "<p>", 3) == 0
+				 || g_ascii_strncasecmp(str2 + i, "<tr", 3) == 0
+				 || g_ascii_strncasecmp(str2 + i, "<br", 3) == 0
+				 || g_ascii_strncasecmp(str2 + i, "<li", 3) == 0
+				 || g_ascii_strncasecmp(str2 + i, "<div", 4) == 0
+				 || g_ascii_strncasecmp(str2 + i, "</table>", 8) == 0)
 				{
 					str2[j++] = '\n';
 				}
 				/* Check for tags which begin CDATA and need to be closed */
 #if 0 /* FIXME.. option is end tag optional, we can't handle this right now */
-				else if (strncasecmp(str2 + i, "<option", 7) == 0)
+				else if (g_ascii_strncasecmp(str2 + i, "<option", 7) == 0)
 				{
 					/* FIXME: We should not do this if the OPTION is SELECT'd */
 					cdata_close_tag = "</option>";
 				}
 #endif
-				else if (strncasecmp(str2 + i, "<script", 7) == 0)
+				else if (g_ascii_strncasecmp(str2 + i, "<script", 7) == 0)
 				{
 					cdata_close_tag = "</script>";
 				}
-				else if (strncasecmp(str2 + i, "<style", 6) == 0)
+				else if (g_ascii_strncasecmp(str2 + i, "<style", 6) == 0)
 				{
 					cdata_close_tag = "</style>";
 				}
@@ -1345,35 +1342,35 @@ gaim_markup_strip_html(const char *str)
 		/* XXX: This sucks.  We need to be un-escaping all entities, which
 		 * includes these, as well as the &#num; ones */
 
-		if (str2[i] == '&' && strncasecmp(str2 + i, "&quot;", 6) == 0)
+		if (str2[i] == '&' && g_ascii_strncasecmp(str2 + i, "&quot;", 6) == 0)
 		{
 		    str2[j++] = '\"';
 		    i = i + 5;
 		    continue;
 		}
 
-		if (str2[i] == '&' && strncasecmp(str2 + i, "&amp;", 5) == 0)
+		if (str2[i] == '&' && g_ascii_strncasecmp(str2 + i, "&amp;", 5) == 0)
 		{
 			str2[j++] = '&';
 			i = i + 4;
 			continue;
 		}
 
-		if (str2[i] == '&' && strncasecmp(str2 + i, "&lt;", 4) == 0)
+		if (str2[i] == '&' && g_ascii_strncasecmp(str2 + i, "&lt;", 4) == 0)
 		{
 			str2[j++] = '<';
 			i = i + 3;
 			continue;
 		}
 
-		if (str2[i] == '&' && strncasecmp(str2 + i, "&gt;", 4) == 0)
+		if (str2[i] == '&' && g_ascii_strncasecmp(str2 + i, "&gt;", 4) == 0)
 		{
 			str2[j++] = '>';
 			i = i + 3;
 			continue;
 		}
 
-		if (str2[i] == '&' && strncasecmp(str2 + i, "&apos;", 6) == 0)
+		if (str2[i] == '&' && g_ascii_strncasecmp(str2 + i, "&apos;", 6) == 0)
 		{
 			str2[j++] = '\'';
 			i = i + 5;
@@ -2335,7 +2332,7 @@ gaim_strcasereplace(const char *string, const char *delimiter,
 	i = 0; /* position in the source string */
 	j = 0; /* number of occurrences of "delimiter" */
 	while (string[i] != '\0') {
-		if (!strncasecmp(&string[i], delimiter, length_del)) {
+		if (!g_ascii_strncasecmp(&string[i], delimiter, length_del)) {
 			i += length_del;
 			j += length_rep;
 		} else {
@@ -2349,7 +2346,7 @@ gaim_strcasereplace(const char *string, const char *delimiter,
 	i = 0; /* position in the source string */
 	j = 0; /* position in the destination string */
 	while (string[i] != '\0') {
-		if (!strncasecmp(&string[i], delimiter, length_del)) {
+		if (!g_ascii_strncasecmp(&string[i], delimiter, length_del)) {
 			strncpy(&ret[j], replacement, length_rep);
 			i += length_del;
 			j += length_rep;

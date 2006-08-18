@@ -1746,6 +1746,12 @@ move_to_next_unread_tab(GaimConversation *conv)
 #ifdef ENABLE_HILDON
                        
 static gboolean
+app_view_delete_event(GtkWidget *entry, GdkEvent *event, GaimConvWindow *conv)
+{
+    close_conv_cb(NULL, gaim_conv_window_get_active_conversation(conv));
+}
+
+static gboolean
 app_view_entry_key_press_cb(GtkWidget *entry, GdkEventKey *event, gpointer data)
 {
     static guint handler_id = 0;
@@ -5001,6 +5007,8 @@ gaim_gtk_add_conversation(GaimConvWindow *win, GaimConversation *conv)
         gtk_container_add(GTK_CONTAINER(app_conv_view), gtkwin->window);
         g_signal_connect(G_OBJECT(app_conv_view), "key_press_event",
                         G_CALLBACK(app_view_entry_key_press_cb), conv);
+	g_signal_connect(G_OBJECT(app_conv_view), "delete_event",
+			G_CALLBACK(app_view_delete_event), win);
         {
         g_object_ref(gtkwin->menu.menubar);
         gtk_widget_hide(gtkwin->menu.menubar);
