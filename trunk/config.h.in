@@ -218,6 +218,12 @@
 /* Define to 1 if you have the <malloc.h> header file. */
 #undef HAVE_MALLOC_H
 
+/* Define if you have MATRIX */
+#undef HAVE_MATRIX
+
+/* Define to 1 if you have the <matrixSsl.h> header file. */
+#undef HAVE_MATRIXSSL_H
+
 /* Define to 1 if you have the `memcpy' function. */
 #undef HAVE_MEMCPY
 
