@@ -12,7 +12,7 @@ Description: Port of gaim to maemo
  Port of gaim to maemo.
 
 Package: maemo-gaim-data
-Architecture: any
+Architecture: all
 Description: Data files for maemo-gaim
  Here there be data.
 
@@ -22,6 +22,69 @@ Architecture: all
 Depends: maemo-gaim
 Description: Development files for gaim
  Development files for gaim.
+
+Package: maemo-gaim-protocol-irc
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: IRC protocol support for gaim
+ IRC protocol support for gaim
+
+Package: maemo-gaim-protocol-jabber
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: Jabber protocol support for gaim
+ Jabber protocol support for gaim
+
+Package: maemo-gaim-protocol-msn
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: MSN protocol support for gaim
+ MSN protocol support for gaim
+
+Package: maemo-gaim-protocol-oscar
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: AIM/ICQ protocol support for gaim
+ AIM/ICQ protocol support for gaim
+
+Package: maemo-gaim-protocol-yahoo
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: Yahoo! protocol support for gaim
+ Yahoo! protocol support for gaim
+
+Package: maemo-gaim-protocol-zephyr
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: Zephyr protocol support for gaim
+ Zephyr protocol support for gaim
+
+Package: maemo-gaim-protocol-gadugadu
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: Gadu-Gadu protocol support for gaim
+ Gadu-Gadu protocol support for gaim
+
+Package: maemo-gaim-protocol-novell
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: Groupwise protocol support for gaim
+ Groupwise protocol support for gaim
+
+Package: maemo-gaim-protocol-napster
+Section: user/Protocols
+Architecture: any
+Depends: maemo-gaim
+Description: Napster protocol support for gaim
+ Napster protocol support for gaim
 
 Package: maemo-gaim-locale-de
 Section: user/Locales

@@ -1,8 +1,15 @@
+maemo-gaim (1.5.0-7) unstable; urgency=low
+
+  * Separate protocols to different packages.
+  * Add icons.
+
+ -- Santtu Lakkala <inz@inz.fi>  Tue, 25 Jul 2006 10:28:33 +0300
+
 maemo-gaim (1.5.0-6) unstable; urgency=low
 
   * Remove circular dependency.
 
- -- Santtu Lakkala <ext-santtu.1.lakkala@nokia.com>  Thu, 29 Jun 2006 08:32:10 +0300
+ -- Santtu Lakkala <inz@inz.fi>  Thu, 29 Jun 2006 08:32:10 +0300
 
 maemo-gaim (1.5.0-5) unstable; urgency=low
 
