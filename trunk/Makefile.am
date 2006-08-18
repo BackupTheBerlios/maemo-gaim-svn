@@ -5,6 +5,8 @@ EXTRA_DIST = \
 		gaim.spec.in \
 		gaim.apspec.in \
 		gaim.desktop \
+		gaim.sh.in \
+		gaim.service.in \
 		gaim2blt.pl \
 		gaim-installer.nsi \
 		HACKING \
@@ -37,8 +39,13 @@ dist-hook: gaim.spec
 distcheck-hook: plugins/perl/common/Gaim.pm
 #	cp plugins/perl/common/Gaim.pm $(distdir)/plugins/perl/common
 
-appsdir = $(datadir)/applications
+appsdir = $(datadir)/applications/hildon
 apps_DATA = gaim.desktop
+
+srvcdir = $(datadir)/dbus-1/services
+srvc_DATA = gaim.service
+
+bin_SCRIPTS = gaim.sh
 
 SUBDIRS = doc intl pixmaps plugins po sounds src
 
@@ -50,3 +57,9 @@ else
 	@echo "doxygen was not found during configure.  Aborting."
 	@echo;
 endif
+
+gaim.sh: gaim.sh.in
+	@sed -e 's!\@bindir\@!$(bindir)!g' < $< > $@
+
+gaim.service: gaim.service.in
+	@sed -e 's!\@bindir\@!$(bindir)!g' < $< > $@
