@@ -549,6 +549,10 @@ dnl #######################################################################
 
 dnl These two are inverses of each other <-- stolen from evolution!
 
+AC_ARG_ENABLE(matrix,
+	[  --enable-matrix=[yes,no]    Attempt to use MatrixSSL for SSL support [default = yes]],
+	[enable_matrix="$enableval"],
+	[enable_matrix="yes"])
 AC_ARG_ENABLE(gnutls,
 	[  --enable-gnutls=[yes,no]    Attempt to use GNUTLS for SSL support (preferred) [default=yes]],
 	[enable_gnutls="$enableval"],
@@ -560,6 +564,84 @@ AC_ARG_ENABLE(nss,
 	[enable_nss="yes"])
 
 msg_ssl="None"
+
+if test "x$enable_matrix" != "xno"; then
+	enable_matrix="no"
+	prefix=`eval echo $prefix`
+
+	AC_ARG_WITH(matrix-includes,
+		    [  --with-matrix-includes=PREFIX   Location of MatrixSSL includes.],
+		    [ with_matrix_includes="$withval" ],
+		    [ with_matrix_includes="$prefix/include" ])
+
+	have_matrix_includes="no"
+
+	if test "x$with_matrix_includes" != "xno"; then
+		CPPFLAGS_save="$CPPFLAGS"
+
+		AC_MSG_CHECKING(for MATRIX includes)
+		AC_MSG_RESULT("")
+
+		CPPFLAGS="$CPPFLAGS -I$with_matrix_includes"
+		AC_CHECK_HEADERS(matrixSsl.h, [ matrix_includes="yes" ])
+		CPPFLAGS="$CPPFLAGS_save"
+
+		if test "x$matrix_includes" != "xno" -a \
+		        "x$matrix_includes" != "x"; then
+			have_matrix_includes="yes"
+
+			MATRIX_CFLAGS="-I$with_matrix_includes"
+		else
+			MATRIX_CFLAGS=""
+		fi
+	else
+		AC_MSG_CHECKING(for MATRIX includes)
+		AC_MSG_RESULT(no)
+	fi
+
+	AC_ARG_WITH(matrix-libs,
+		[  --with-matrix-libs=PREFIX       Location of MATRIX libraries.],
+		[ with_matrix_libs="$withval" ])
+
+	if test "x$with_matrix_libs"     != "xno" -a \
+	        "x$have_matrix_includes" != "xno"; then
+
+		LDFLAGS_save="$LDFLAGS"
+
+		case $with_matrix_libs in
+			""|-L*) ;;
+			*) with_matrix_libs="-L$with_matrix_libs" ;;
+		esac
+
+		AC_CACHE_CHECK([for MATRIX libraries], matrix_libs,
+		[
+			LDFLAGS="$LDFLAGS $with_matrix_libs -lmatrixssl"
+			AC_TRY_LINK_FUNC(matrixSslOpen, matrix_libs="yes", matrix_libs="no")
+			LDFLAGS="$LDFLAGS_save"
+		])
+
+		if test "x$matrix_libs" != "xno"; then
+			AC_DEFINE(HAVE_MATRIX, 1, [Define if you have MATRIX])
+			AC_DEFINE(HAVE_SSL)
+			msg_matrix="MATRIX"
+			MATRIX_LIBS="$with_matrix_libs -lmatrixssl"
+
+			enable_matrix="yes"
+		else
+			MATRIX_CFLAGS=""
+			MATRIX_LIBS=""
+		fi
+	else
+		AC_MSG_CHECKING(for MATRIX libraries)
+		AC_MSG_RESULT(no)
+	fi
+else
+	MATRIX_CFLAGS=""
+	MATRIX_LIBS=""
+fi
+
+AC_SUBST(MATRIX_CFLAGS)
+AC_SUBST(MATRIX_LIBS)
 
 dnl #
 dnl # Check for GNUTLS if it's specified.
@@ -896,12 +978,20 @@ fi
 
 AM_CONDITIONAL(USE_NSS, test "x$enable_nss" = "xyes")
 
-if test "x$msg_nss" != "x" -a "x$msg_gnutls" != "x"; then
+if test "x$msg_nss" != "x" -a "x$msg_gnutls" != "x" -a "x$msg_matrix" != "x"; then
+	msg_ssl="$msg_nss, $msg_gnutls and $msg_matrix"
+elif test "x$msg_nss" != "x" -a "x$msg_gnutls" != "x"; then
 	msg_ssl="$msg_nss and $msg_gnutls"
+elif test "x$msg_nss" != "x" -a "x$msg_matrix" != "x"; then
+	msg_ssl="$msg_nss and $msg_matrix"
+elif test "x$msg_gnutls" != "x" -a "x$msg_matrix" != "x"; then
+	msg_ssl="$msg_gnutls and $msg_matrix"
 elif test "x$msg_nss" != "x"; then
 	msg_ssl=$msg_nss
 elif test "x$msg_gnutls" != "x"; then
 	msg_ssl=$msg_gnutls
+elif test "x$msg_matrix" != "x"; then
+	msg_ssl=$msg_matrix
 fi
 
 dnl Check for Tcl
@@ -1059,16 +1149,15 @@ fi
 if test "x$enable_hildon" = "xyes" ; then
 	AC_DEFINE(ENABLE_HILDON, 1, [Define if hildon is enabled.])
 	AM_CONDITIONAL(ENABLE_HILDON, test "x$enable_hildon" = "xyes")
-	HILDON_LIBS="-lhildonlgpl -losso"
-	HILDON_CFLAGS="-I/usr/include/hildon-lgpl"
+	PKG_CHECK_MODULES(OSSO, libosso >= 1.0 hildon-libs >= 0.12.0)
 else
 	AM_CONDITIONAL(ENABLE_HILDON, false)
 	enable_hildon=no
-	HILDON_LIBS=""
-	HILDON_CFLAGS=""
+	OSSO_LIBS=""
+	OSSO_CFLAGS=""
 fi
-AC_SUBST(HILDON_LIBS)
-AC_SUBST(HILDON_CFLAGS)
+AC_SUBST(OSSO_LIBS)
+AC_SUBST(OSSO_CFLAGS)
 
 if test "x$enable_small_screen" = "xyes" ; then
     AC_DEFINE(GAIM_SMALL_SCREEN, 1, [Define if hildon is enabled.])
